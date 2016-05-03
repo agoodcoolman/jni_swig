@@ -1,6 +1,7 @@
 package com.example.jni;
 
 import com.apress.swig.Unix;
+import com.apress.swig.UnixJNI;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,8 +21,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		TextView textview = (TextView) findViewById(R.id.textview);
 //		int add = Native.add(1, 3);
-		textview.setText(Native.add(1, 2) + "" + Unix.getuid());
+//		textview.setText(Native.add(1, 2) + "" + Unix.getuid());
 //		textview.setText(Unix.getuid()+"");
+		
+		UnixJNI.MAX_HEIGHT_get();
 	}
 
 	

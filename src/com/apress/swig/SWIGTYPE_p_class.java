@@ -8,9 +8,19 @@
 
 package com.apress.swig;
 
-public class Unix implements UnixConstants {
-  public static long getuid() throws java.lang.IllegalAccessException {
-    return UnixJNI.getuid();
+public class SWIGTYPE_p_class {
+  private transient long swigCPtr;
+
+  protected SWIGTYPE_p_class(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+    swigCPtr = cPtr;
   }
 
+  protected SWIGTYPE_p_class() {
+    swigCPtr = 0;
+  }
+
+  protected static long getCPtr(SWIGTYPE_p_class obj) {
+    return (obj == null) ? 0 : obj.swigCPtr;
+  }
 }
+

@@ -17,6 +17,30 @@
 #endif
 
 
+
+#ifdef __cplusplus
+/* SwigValueWrapper is described in swig.swg */
+template<typename T> class SwigValueWrapper {
+  struct SwigMovePointer {
+    T *ptr;
+    SwigMovePointer(T *p) : ptr(p) { }
+    ~SwigMovePointer() { delete ptr; }
+    SwigMovePointer& operator=(SwigMovePointer& rhs) { T* oldptr = ptr; ptr = 0; delete oldptr; ptr = rhs.ptr; rhs.ptr = 0; return *this; }
+  } pointer;
+  SwigValueWrapper& operator=(const SwigValueWrapper<T>& rhs);
+  SwigValueWrapper(const SwigValueWrapper<T>& rhs);
+public:
+  SwigValueWrapper() : pointer(0) { }
+  SwigValueWrapper& operator=(const T& t) { SwigMovePointer tmp(new T(t)); pointer = tmp; return *this; }
+  operator T&() const { return *pointer.ptr; }
+  T *operator&() { return pointer.ptr; }
+};
+
+template <typename T> T SwigValueInit() {
+  return T();
+}
+#endif
+
 /* -----------------------------------------------------------------------------
  *  This section contains generic SWIG labels for method/variable
  *  declarations/attributes, and other compiler dependent labels.
@@ -195,10 +219,10 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
   while (except_ptr->code != code && except_ptr->code)
     except_ptr++;
 
-  (*jenv)->ExceptionClear(jenv);
-  excep = (*jenv)->FindClass(jenv, except_ptr->java_exception);
+  jenv->ExceptionClear();
+  excep = jenv->FindClass(except_ptr->java_exception);
   if (excep)
-    (*jenv)->ThrowNew(jenv, excep, msg);
+    jenv->ThrowNew(excep, msg);
 }
 
 
@@ -215,35 +239,53 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 extern "C" {
 #endif
 
-SWIGEXPORT void JNICALL Java_com_apress_swig_UnixJNI_Points_1set(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  class arg1 ;
-  class *argp1 ;
+SWIGEXPORT jlong JNICALL Java_com_apress_swig_UnixJNI_new_1Points(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Points *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  argp1 = *(class **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null class");
-    return ;
-  }
-  arg1 = *argp1; 
-  Points = arg1;
+  result = (Points *)new Points();
+  *(Points **)&jresult = result; 
+  return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_apress_swig_UnixJNI_Points_1get(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  class result;
+SWIGEXPORT void JNICALL Java_com_apress_swig_UnixJNI_delete_1Points(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Points *arg1 = (Points *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = Points;
-  {
-    class * resultptr = (class *) malloc(sizeof(class));
-    memmove(resultptr, &result, sizeof(class));
-    *(class **)&jresult = resultptr;
-  }
-  return jresult;
+  arg1 = *(Points **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_apress_swig_UnixJNI_Points_1funca(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Points *arg1 = (Points *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Points **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->funca(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_com_apress_swig_UnixJNI_Points_1fun(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+  Points *arg1 = (Points *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Points **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  (arg1)->fun(arg2,arg3);
 }
 
 
@@ -265,7 +307,14 @@ SWIGEXPORT jlong JNICALL Java_com_apress_swig_UnixJNI_getuid(JNIEnv *jenv, jclas
   
   (void)jenv;
   (void)jcls;
-  result = (uid_t)getuid();
+  {
+    result = (uid_t)getuid();
+    if (!result) {
+      jclass jclazz = jenv->FindClass("java/lang/IllegalAccessException");
+      jenv->ThrowNew(jclazz, "Illegal Access");
+      return 0;
+    }
+  }
   jresult = (jlong)result; 
   return jresult;
 }

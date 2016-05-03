@@ -9,5 +9,10 @@
 package com.apress.swig;
 
 public class UnixJNI {
-  public final static native long getuid();
+  public final static native long new_Points();
+  public final static native void delete_Points(long jarg1);
+  public final static native void Points_funca(long jarg1, Points jarg1_, int jarg2);
+  public final static native void Points_fun(long jarg1, Points jarg1_, int jarg2, int jarg3);
+  public final static native int MAX_HEIGHT_get();
+  public final static native long getuid() throws java.lang.IllegalAccessException;
 }

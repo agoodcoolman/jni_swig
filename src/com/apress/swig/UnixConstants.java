@@ -8,9 +8,7 @@
 
 package com.apress.swig;
 
-public class Unix implements UnixConstants {
-  public static long getuid() throws java.lang.IllegalAccessException {
-    return UnixJNI.getuid();
-  }
-
+public interface UnixConstants {
+  public final static int MAX_WIDHT = 200;
+  public final static int MAX_HEIGHT = UnixJNI.MAX_HEIGHT_get();
 }
