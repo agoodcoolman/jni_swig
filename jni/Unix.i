@@ -1,7 +1,10 @@
-%module Unix
+%module (directors = 1)Unix
 %{
 #include <unistd.h>
 #include <Points.h>
+#include <stdlib.h>
+
+using namespace std;
 %}
 %include <Points.h>
 class Points {
@@ -52,5 +55,29 @@ extern int write_only;
 	inx x;
 	int y;
 };*/
+// ps:这里是在声明一下,如果你不声明一下
+%{
+	class AsyncUidProvider  {
+		public:
+			AsyncUidProvider(){}
+			virtual ~AsyncUidProvider(){}
+			void get() {
+				onUid(getuid());
+			}
+			virtual void onUid(uid_t uid){}
+	};
+	
+%}
+// swig使用directors 特征提供对交叉语言多台行的支持, 一般禁用:1.%module(directors = 1) Unix  2.%feature("director") AsyncUidProvider;
+%feature("director") AsyncUidProvider;
+class AsyncUidProvider  {
+		public:
+			AsyncUidProvider(){}
+			virtual ~AsyncUidProvider(){}
+			void get() {
+				onUid(getuid());
+			}
+			virtual void onUid(uid_t uid){}
+	};
 
 
