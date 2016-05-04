@@ -29,6 +29,7 @@ public class UnixJNI {
 
   private final static native void swig_module_init();
   static {
+	  System.loadLibrary("jni");
     swig_module_init();
   }
 }

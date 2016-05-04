@@ -21,10 +21,16 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		TextView textview = (TextView) findViewById(R.id.textview);
 //		int add = Native.add(1, 3);
-//		textview.setText(Native.add(1, 2) + "" + Unix.getuid());
+//		try {
+//			textview.setText(Native.add(1, 2) + "" + Unix.getuid());
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		textview.setText(Unix.getuid()+"");
 		
-		UnixJNI.MAX_HEIGHT_get();
+		MyHandler myHandler = new MyHandler(textview);
+		myHandler.get();
 	}
 
 	

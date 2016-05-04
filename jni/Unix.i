@@ -1,4 +1,4 @@
-%module (directors = 1)Unix
+%module (directors = 1) Unix
 %{
 #include <unistd.h>
 #include <Points.h>
@@ -69,6 +69,7 @@ extern int write_only;
 	
 %}
 // swig使用directors 特征提供对交叉语言多台行的支持, 一般禁用:1.%module(directors = 1) Unix  2.%feature("director") AsyncUidProvider;
+%typemap("javapackage") AsyncUidProvider, AsyncUidProvider *, AsyncUidProvider & "com.apress.swig";
 %feature("director") AsyncUidProvider;
 class AsyncUidProvider  {
 		public:
@@ -77,7 +78,7 @@ class AsyncUidProvider  {
 			void get() {
 				onUid(getuid());
 			}
-			virtual void onUid(uid_t uid){}
+			 virtual void onUid(uid_t uid){}
 	};
 
 
